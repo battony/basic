@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <new>
+#include <utility>
 
 namespace basic::utils {
 
@@ -14,11 +15,11 @@ public:
     template <typename... A>
     FastPimpl(A&&... args)
             noexcept(noexcept(T(std::declval<A>()...))) {
-        new (Ptr()) T(std::declval<A>()...);
+        new (Ptr()) T(std::forward<A>(args)...);
     }
 
     ~FastPimpl() noexcept {
-        Validate();
+        Validate<sizeof(T), alignof(T)>();
         Ptr()->~T();
     }
 
@@ -70,13 +71,14 @@ private:
         return reinterpret_cast<const T*>(&m_storage);
     }
 
+    template <size_t ActualSize, size_t ActualAlignment>
     static auto Validate() noexcept -> void {
         static_assert(
-            Size == sizeof(T),
+            Size == ActualSize,
             "Ivalid size: Size != sizeof(T)"
         );
         static_assert(
-            Alignment == alignof(T),
+            Alignment == ActualAlignment,
             "Ivalid alignment: Alignment != alignof(T)"
         );
     }

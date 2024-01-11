@@ -1,6 +1,7 @@
 #include "basic/concurrency/HpFaaArrayQueue.hxx"
 #include "basic/concurrency/HpMichaelScottQueue.hxx"
 #include "basic/concurrency/HpTreiberStack.hxx"
+#include "basic/os/Semaphore.hxx"
 
 #include <iostream>
 #include <array>
@@ -17,6 +18,8 @@ size_t cnt = 8000000;
 auto main() -> int {
 
     auto start = std::chrono::steady_clock::now();
+
+    basic::os::Semaphore sem(5);
 
     { 
         std::array<basic::concurrency::HpFaaArrayQueue<size_t>, K> ss;
