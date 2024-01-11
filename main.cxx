@@ -1,3 +1,4 @@
+#include "basic/concurrency/BlockingQueue.hxx"
 #include "basic/concurrency/HpFaaArrayQueue.hxx"
 #include "basic/concurrency/HpMichaelScottQueue.hxx"
 #include "basic/concurrency/HpTreiberStack.hxx"
@@ -19,10 +20,11 @@ auto main() -> int {
 
     auto start = std::chrono::steady_clock::now();
 
-    basic::os::Semaphore sem(5);
+    using QueueType = basic::concurrency::BlockingQueue<size_t, basic::concurrency::HpFaaArrayQueue>;
+    // using QueueType = basic::concurrency::HpFaaArrayQueue<size_t>;
 
     { 
-        std::array<basic::concurrency::HpFaaArrayQueue<size_t>, K> ss;
+        std::array<QueueType, K> ss;
         std::array<std::vector<std::thread>, K> pools;
         std::array<std::atomic<size_t>, K> not_dones;
 

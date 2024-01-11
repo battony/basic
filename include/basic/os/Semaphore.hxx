@@ -13,7 +13,7 @@ private:
 
 public:
 
-    Semaphore(size_t size) noexcept;
+    Semaphore(size_t size = 0) noexcept;
 
     ~Semaphore() noexcept;
 
@@ -28,6 +28,8 @@ public:
     auto Release() noexcept -> void;
 
     auto Acquire() noexcept -> void;
+
+    auto TryAcquire() noexcept -> bool;
 
 private:
 

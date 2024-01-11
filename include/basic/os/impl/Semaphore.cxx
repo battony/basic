@@ -15,4 +15,8 @@ auto Semaphore::Acquire() noexcept -> void {
     m_impl->Acquire();
 }
 
+auto Semaphore::TryAcquire() noexcept -> bool {
+    return m_impl->TryAcquire();
+}
+
 }

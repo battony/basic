@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.10)
 project(basic LANGUAGES CXX)
 
 set(basic-include include)
-file(GLOB_RECURSE basic-sources include *.cxx)
+file(GLOB_RECURSE basic-sources include/*.cxx)
 
 set(basic-compile-options-optimize -O3 -DNDEBUG)
 set(basic-compile-options-sanitize -fno-sanitize=all)

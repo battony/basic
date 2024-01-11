@@ -28,9 +28,11 @@ public:
 
     auto Acquire() noexcept -> void;
 
+    auto TryAcquire() noexcept -> bool;
+
 private:
 
-    sem_t m_sem;
+    sem_t m_semaphore;
 
 };
 
