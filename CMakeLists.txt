@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(basic LANGUAGES CXX)
+project(basic LANGUAGES CXX ASM)
 
 set(basic-include include)
-file(GLOB_RECURSE basic-sources include/*.cxx)
+file(GLOB_RECURSE basic-sources include/*.cxx include/*Amd64.s)
 
 set(basic-compile-options-optimize -O3 -DNDEBUG)
 set(basic-compile-options-sanitize -fno-sanitize=all)
